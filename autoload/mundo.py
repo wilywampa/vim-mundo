@@ -131,15 +131,9 @@ def MundoRenderGraph(force=False):
     vim.current.buffer[:] = lines
     vim.command('setlocal nomodifiable')
 
-    i = 1
-    for line in output:
-        try:
-            line.split('[')[0].index('@')
-            i += 1
-            break
-        except ValueError:
-            pass
-        i += 1
+    i = next(iter(i for i, line in enumerate(output, 2) if
+                  '@' in line.split('[')[0] or
+                  '$' in line.split('[')[0]), len(output))
     vim.command('%d' % (i+len(header)-1))
 
 def MundoRenderPreview():
@@ -149,11 +143,11 @@ def MundoRenderPreview():
     target_state = MundoGetTargetState()
     # Check that there's an undo state. There may not be if we're talking about
     # a buffer with no changes yet.
-    if target_state == None:
+    if target_state:
+        target_state = int(target_state)
+    else:
         util._goto_window_for_buffer_name('__Mundo__')
         return
-    else:
-        target_state = int(target_state)
 
     util._goto_window_for_buffer(vim.eval('g:mundo_target_n'))
 
