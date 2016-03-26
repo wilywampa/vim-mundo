@@ -45,7 +45,7 @@ class Nodes(object):
         for alt in alts:
             if alt:
                 curhead = 'curhead' in alt
-                saved = 'save' in alt
+                saved = int(alt.get('save', 0))
                 node = Node(n=alt['seq'], parent=p, time=alt['time'], curhead=curhead, saved=saved)
                 nodes.append(node)
                 if alt.get('alt'):

@@ -182,8 +182,13 @@ def generate(verbose, num_header_lines, first_visible_line, last_visible_line, i
 
     nodes, nmap = nodesData.make_nodes()
 
+    max_saved_num = 0
+    current_save = 0
     for node in nodes:
         node.children = [n for n in nodes if n.parent == node]
+        if node.saved > max_saved_num:
+            max_saved_num = node.saved
+            current_save = node.n
 
     def walk_nodes(nodes):
         for node in nodes:
@@ -204,9 +209,15 @@ def generate(verbose, num_header_lines, first_visible_line, last_visible_line, i
             age_label = 'Original'
         line = '[%s] %s' % (node.n, age_label)
         if node.n == current:
-            char = '@'
+            if node.saved:
+                char = '$'
+            else:
+                char = '@'
         elif node.saved:
-            char = 'w'
+            if node.n == current_save:
+                char = 'S'
+            else:
+                char = 's'
         else:
             char = 'o'
         show_inine_diff = inline_graph and line_number >= first_visible_line and line_number <= last_visible_line

@@ -236,7 +236,7 @@ def MundoMove(direction,move_count=1,relative=True,write=False):
     else:
         vim.command("call cursor(%d, 0)" % target_n)
 
-    # Move to the node, whether it's an @, o, or w
+    # Move to the node, whether it's an @, o, or s
     match = re.search('[$@Sso][ -]', vim.eval("getline('.')"))
     if match:
         vim.command("call cursor(0, %d + 1)" % match.start())

@@ -142,13 +142,15 @@ endfunction"}}}
 function! s:MundoSyntaxGraph()"{{{
     let b:current_syntax = 'mundo'
 
-    syn match MundoCurrentLocation '@'
+    syn match MundoCurrentLocation '[@$]'
     syn match MundoHelp '\v^".*$'
     syn match MundoNumberField '\v\[[0-9]+\]'
     syn match MundoNumber '\v[0-9]+' contained containedin=MundoNumberField
     syn region MundoDiff start=/\v<ago> / end=/$/
     syn match MundoDiffAdd '\v\+[^+-]+\+' contained containedin=MundoDiff
     syn match MundoDiffDelete '\v-[^+-]+-' contained containedin=MundoDiff
+    syn match MundoSave '\v^[ |]*\zss'
+    syn match MundoLatestSave '\v^[ |]*\zsS'
 
     hi def link MundoCurrentLocation Keyword
     hi def link MundoHelp Comment
@@ -156,6 +158,8 @@ function! s:MundoSyntaxGraph()"{{{
     hi def link MundoNumber Identifier
     hi def link MundoDiffAdd DiffAdd
     hi def link MundoDiffDelete DiffDelete
+    hi def link MundoSave PreProc
+    hi def link MundoLatestSave Keyword
 endfunction"}}}
 
 "}}}
