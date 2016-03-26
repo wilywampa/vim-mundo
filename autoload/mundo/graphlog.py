@@ -219,12 +219,13 @@ def generate(verbose, num_header_lines, first_visible_line, last_visible_line, i
     return result
 
 # Mercurial age function -----------------------------------------------------------
-agescales = [("yr", 3600 * 24 * 365),
-             ("mon", 3600 * 24 * 30),
-             ("wk", 3600 * 24 * 7),
-             ("dy", 3600 * 24),
-             ("hr", 3600),
-             ("min", 60)]
+agescales = [("year", 3600 * 24 * 365),
+             ("month", 3600 * 24 * 30),
+             ("week", 3600 * 24 * 7),
+             ("day", 3600 * 24),
+             ("hour", 3600),
+             ("minute", 60),
+             ("second", 1)]
 
 def age(ts):
     '''turn a timestamp into an age string.'''
