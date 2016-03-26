@@ -264,7 +264,12 @@ def MundoMove(direction,move_count=1,relative=True,write=False):
         vim.command("call cursor(0, %d + 1)" % idx3)
 
     if vim.eval('g:mundo_auto_preview') == '1':
-        MundoRenderPreview()
+        eventignore = vim.eval('&eventignore')
+        try:
+            vim.command("let &eventignore = 'BufWinEnter,BufEnter,WinEnter,BufLeave,WinLeave'")
+            MundoRenderPreview()
+        finally:
+            vim.command('let &eventignore = %r' % eventignore)
 
 def MundoSearch():
     search = vim.eval("input('/')");
