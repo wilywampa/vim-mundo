@@ -78,8 +78,12 @@ function! s:MundoMapGraph()"{{{
     exec 'nnoremap <script> <silent> <buffer> ' . g:mundo_map_move_newer . " :call <sid>MundoPython('MundoMove(-1,'. v:count .')')<CR>"
     nnoremap <script> <silent> <buffer> <CR>          :call <sid>MundoPython('MundoRevert()')<CR>
     nnoremap <script> <silent> <buffer> o             :call <sid>MundoPython('MundoRevert()')<CR>
-    nnoremap <script> <silent> <buffer> <down>        :call <sid>MundoPython('MundoMove(1,'. v:count .')')<CR>
-    nnoremap <script> <silent> <buffer> <up>          :call <sid>MundoPython('MundoMove(-1,'. v:count .')')<CR>
+    if empty(maparg('<down>', 'n'))
+      nnoremap <script> <silent> <buffer> <down>      :call <sid>MundoPython('MundoMove(1,'. v:count .')')<CR>
+    endif
+    if empty(maparg('<up>', 'n'))
+      nnoremap <script> <silent> <buffer> <up>        :call <sid>MundoPython('MundoMove(-1,'. v:count .')')<CR>
+    endif
     nnoremap <script> <silent> <buffer> J             :call <sid>MundoPython('MundoMove(1,'. v:count .',True,True)')<CR>
     nnoremap <script> <silent> <buffer> K             :call <sid>MundoPython('MundoMove(-1,'. v:count .',True,True)')<CR>
     nnoremap <script> <silent> <buffer> gg            gg:call <sid>MundoPython('MundoMove(1,'. v:count .')')<CR>
@@ -93,6 +97,7 @@ function! s:MundoMapGraph()"{{{
     nnoremap <script> <silent> <buffer> r             :call <sid>MundoPython('MundoRenderPreview()')<CR>
     nnoremap <script> <silent> <buffer> ?             :call <sid>MundoPython('MundoToggleHelp()')<CR>
     nnoremap <script> <silent> <buffer> q             :call <sid>MundoClose()<CR>
+    nnoremap <script> <silent> <buffer> Q             :call <sid>MundoClose()<CR>
     cabbrev  <script> <silent> <buffer> q             call <sid>MundoClose()
     cabbrev  <script> <silent> <buffer> quit          call <sid>MundoClose()
     nnoremap <script> <silent> <buffer> <2-LeftMouse> :call <sid>MundoMouseDoubleClick()<CR>
