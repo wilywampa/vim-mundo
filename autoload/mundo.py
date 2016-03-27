@@ -83,7 +83,7 @@ def MundoRenderGraph(force=False):
     if int(vim.eval('g:mundo_help')):
         header = (INLINE_HELP % target).splitlines()
     else:
-        header = [(INLINE_HELP % target).splitlines()[0], '\n']
+        header = []
 
     show_inline_undo = int(vim.eval("g:mundo_inline_undo")) == 1
     mundo_last_visible_line = int(vim.eval("g:mundo_last_visible_line"))
@@ -228,7 +228,7 @@ def MundoMove(direction,move_count=1,relative=True,write=False):
         target_n = GetNextLine(updown,abs(MundoGetTargetState()-direction),write)
 
     # Bound the movement to the graph.
-    help_lines = 3
+    help_lines = 1
     if int(vim.eval('g:mundo_help')):
         help_lines = len(INLINE_HELP.split('\n'))
     if target_n <= help_lines:

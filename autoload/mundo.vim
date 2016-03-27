@@ -86,7 +86,7 @@ function! s:MundoMapGraph()"{{{
     endif
     nnoremap <script> <silent> <buffer> J             :call <sid>MundoPython('MundoMove(1,'. v:count .',True,True)')<CR>
     nnoremap <script> <silent> <buffer> K             :call <sid>MundoPython('MundoMove(-1,'. v:count .',True,True)')<CR>
-    nnoremap <script> <silent> <buffer> gg            gg:call <sid>MundoPython('MundoMove(1,'. v:count .')')<CR>
+    nnoremap <script> <silent> <buffer> gg            gg:call <sid>MundoPython('MundoMove(1)')<bar>call <sid>MundoPython('MundoMove(-1)')<CR>
     nnoremap <script> <silent> <buffer> P             :call <sid>MundoPython('MundoPlayTo()')<CR>
     nnoremap <script> <silent> <buffer> d             :call <sid>MundoPython('MundoRenderPatchdiff()')<CR>
     nnoremap <script> <silent> <buffer> i             :call <sid>MundoPython('MundoRenderToggleInlineDiff()')<CR>
