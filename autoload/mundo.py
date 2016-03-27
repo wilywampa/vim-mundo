@@ -236,26 +236,10 @@ def MundoMove(direction,move_count=1,relative=True,write=False):
     else:
         vim.command("call cursor(%d, 0)" % target_n)
 
-    line = vim.eval("getline('.')")
-
     # Move to the node, whether it's an @, o, or w
-    idx1 = line.find('@ ')
-    idx2 = line.find('o ')
-    idx3 = line.find('w ')
-    idxs = []
-    if idx1 != -1:
-        idxs.append(idx1)
-    if idx2 != -1:
-        idxs.append(idx2)
-    if idx3 != -1:
-        idxs.append(idx3)
-    minidx = min(idxs)
-    if idx1 == minidx:
-        vim.command("call cursor(0, %d + 1)" % idx1)
-    elif idx2 == minidx:
-        vim.command("call cursor(0, %d + 1)" % idx2)
-    else:
-        vim.command("call cursor(0, %d + 1)" % idx3)
+    match = re.search('[$@Sso][ -]', vim.eval("getline('.')"))
+    if match:
+        vim.command("call cursor(0, %d + 1)" % match.start())
 
     if vim.eval('g:mundo_auto_preview') == '1':
         eventignore = vim.eval('&eventignore')
