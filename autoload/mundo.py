@@ -172,7 +172,7 @@ def MundoGetTargetState():
 
 def GetNextLine(direction,move_count,write,start="line('.')"):
     start_line_no = int(vim.eval(start))
-    start_line = vim.eval("getline('.')")
+    start_line = vim.eval("getline(%d)" % start_line_no)
     mundo_verbose_graph = vim.eval('g:mundo_verbose_graph')
     if mundo_verbose_graph != "0":
         distance = 2
@@ -183,11 +183,8 @@ def GetNextLine(direction,move_count,write,start="line('.')"):
     else:
       distance = 1
       nextline = vim.eval("getline(%d)" % (start_line_no+direction))
-      idx1 = nextline.find('@')
-      idx2 = nextline.find('o')
-      idx3 = nextline.find('w')
       # if the next line is not a revision - then go down one more.
-      if (idx1+idx2+idx3) == -3:
+      if all(nextline.find(c) == -1 for c in '$@Sso'):
           distance = distance + 1
 
     next_line = start_line_no + distance*direction
