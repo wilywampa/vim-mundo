@@ -382,6 +382,10 @@ function! mundo#MundoRenderGraph()"{{{
     call s:MundoPython('MundoRenderGraph()')
 endfunction"}}}
 
+function! mundo#MundoPython(fn)"{{{
+    call s:MundoPython(a:fn)
+endfunction"}}}
+
 " automatically reload Mundo buffer if open
 function! s:MundoRefresh()"{{{
   " abort when there were no changes
